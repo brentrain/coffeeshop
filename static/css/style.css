@@ -1,0 +1,183 @@
+:root {
+    --cream: #FEFAF6;
+    --light-beige: #EADBC8;
+    --warm-brown: #DAC0A3;
+    --deep-navy: #102C57;
+}
+
+body {
+    background-color: #3E2723;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+}
+
+.navbar {
+    background-color: var(--deep-navy) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--cream) !important;
+}
+
+.nav-link {
+    color: var(--cream) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.3s ease;
+}
+
+.navbar .nav-link {
+    color: var(--cream) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.3s ease;
+}
+
+.navbar .nav-link span {
+    padding: 0.5rem 0;
+    display: inline-block;
+}
+
+.nav-link:hover {
+    color: var(--warm-brown) !important;
+    transform: translateY(-2px);
+}
+
+.navbar-toggler {
+    border-color: var(--cream) !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(254, 250, 246, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    border: none;
+    margin-bottom: 20px;
+    background-color: var(--light-beige);
+}
+
+.card-header {
+    border-bottom: none;
+    background-color: var(--warm-brown) !important;
+    color: var(--deep-navy) !important;
+    text-align: center;
+    padding: 1rem;
+}
+
+.card-header h3, .card-header h4 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.card-body h4 {
+    color: var(--deep-navy);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    background-color: var(--deep-navy);
+    border-color: var(--deep-navy);
+    color: var(--cream);
+}
+
+.btn-primary:hover {
+    background-color: #0a1f3d;
+    border-color: #0a1f3d;
+}
+
+.btn-success {
+    background-color: var(--warm-brown);
+    border-color: var(--warm-brown);
+    color: var(--deep-navy);
+}
+
+.btn-success:hover {
+    background-color: #c5a98a;
+    border-color: #c5a98a;
+}
+
+.list-group-item {
+    border: none;
+    background-color: transparent;
+    color: var(--deep-navy);
+    padding: 0.75rem 1.25rem;
+}
+
+.text-muted {
+    color: var(--deep-navy) !important;
+    opacity: 0.8;
+    text-align: center;
+}
+
+.card-body p {
+    color: var(--deep-navy);
+    opacity: 0.9;
+    text-align: center;
+}
+
+.alert {
+    background-color: var(--light-beige);
+    border-color: var(--warm-brown);
+    color: var(--deep-navy);
+}
+
+.form-control {
+    background-color: var(--cream);
+    border-color: var(--warm-brown);
+    color: var(--deep-navy);
+}
+
+.form-control:focus {
+    background-color: var(--cream);
+    border-color: var(--deep-navy);
+    box-shadow: 0 0 0 0.25rem rgba(16, 44, 87, 0.25);
+}
+
+.form-label {
+    color: var(--deep-navy);
+}
+
+a {
+    color: var(--deep-navy);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--warm-brown);
+}
+
+/* Cart Icon Styles */
+.navbar .fa-coffee {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.navbar .nav-link .badge {
+    position: relative;
+    top: -8px;
+    right: 8px;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.navbar .nav-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Ensure the cart icon and badge are properly aligned */
+.navbar .nav-link .fa-coffee {
+    margin-right: 0.25rem;
+}
+
+.navbar .nav-link.welcome-message {
+    padding: 0.75rem 1rem !important;
+} 

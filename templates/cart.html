@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Your Cart - Coffee Shop{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header">
+                <h3>Your Cart</h3>
+            </div>
+            <div class="card-body">
+                {% if cart_items %}
+                    <div class="list-group mb-4">
+                        {% for item in cart_items %}
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-1">{{ item.name }}</h5>
+                                        <p class="mb-1">
+                                            Size: {{ item.size|title }}<br>
+                                            {% if item.milk %}
+                                                Milk: {{ item.milk|title }}<br>
+                                            {% endif %}
+                                            {% if item.sugar %}
+                                                Sugar: {{ item.sugar }} packets<br>
+                                            {% endif %}
+                                            {% if item.extras %}
+                                                {% if item.extras.whipped_cream %}Whipped Cream<br>{% endif %}
+                                                {% if item.extras.caramel_drizzle %}Caramel Drizzle<br>{% endif %}
+                                                {% if item.extras.chocolate_syrup %}Chocolate Syrup<br>{% endif %}
+                                            {% endif %}
+                                            {% if item.tea_strength %}
+                                                Strength: {{ item.tea_strength|title }}<br>
+                                            {% endif %}
+                                            {% if item.sweetener %}
+                                                Sweetener: {{ item.sweetener|title }}<br>
+                                            {% endif %}
+                                            {% if item.lemon %}
+                                                Lemon<br>
+                                            {% endif %}
+                                            {% if item.flavor and item.flavor != 'none' %}
+                                                Flavor: {{ item.flavor|title }}<br>
+                                            {% endif %}
+                                            {% if item.matcha_grade %}
+                                                Grade: {{ item.matcha_grade|title }}<br>
+                                            {% endif %}
+                                            {% if item.sweetness %}
+                                                Sweetness: {{ item.sweetness|title }}<br>
+                                            {% endif %}
+                                            {% if item.instructions %}
+                                                <small class="text-muted">Note: {{ item.instructions }}</small>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                    <div class="text-end">
+                                        <h5>${{ "%.2f"|format(item.price) }}</h5>
+                                        <form action="{{ url_for('remove_from_cart', index=loop.index0) }}" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4>Total: ${{ "%.2f"|format(total) }}</h4>
+                        <a href="{{ url_for('checkout') }}" class="btn btn-primary">Proceed to Checkout</a>
+                    </div>
+                {% else %}
+                    <div class="text-center">
+                        <p class="mb-4">Your cart is empty.</p>
+                        <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Menu</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

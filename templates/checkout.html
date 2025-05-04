@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout - Coffee Shop{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Order Summary</h3>
+            </div>
+            <div class="card-body">
+                <div class="list-group mb-4">
+                    {% for item in cart_items %}
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1">{{ item.name }}</h5>
+                                    <p class="mb-1">
+                                        Size: {{ item.size|title }}<br>
+                                        {% if item.milk %}
+                                            Milk: {{ item.milk|title }}<br>
+                                        {% endif %}
+                                        {% if item.sugar %}
+                                            Sugar: {{ item.sugar }} packets<br>
+                                        {% endif %}
+                                        {% if item.extras %}
+                                            {% if item.extras.whipped_cream %}Whipped Cream<br>{% endif %}
+                                            {% if item.extras.caramel_drizzle %}Caramel Drizzle<br>{% endif %}
+                                            {% if item.extras.chocolate_syrup %}Chocolate Syrup<br>{% endif %}
+                                        {% endif %}
+                                        {% if item.tea_strength %}
+                                            Strength: {{ item.tea_strength|title }}<br>
+                                        {% endif %}
+                                        {% if item.sweetener %}
+                                            Sweetener: {{ item.sweetener|title }}<br>
+                                        {% endif %}
+                                        {% if item.lemon %}
+                                            Lemon<br>
+                                        {% endif %}
+                                        {% if item.flavor and item.flavor != 'none' %}
+                                            Flavor: {{ item.flavor|title }}<br>
+                                        {% endif %}
+                                        {% if item.matcha_grade %}
+                                            Grade: {{ item.matcha_grade|title }}<br>
+                                        {% endif %}
+                                        {% if item.sweetness %}
+                                            Sweetness: {{ item.sweetness|title }}<br>
+                                        {% endif %}
+                                        {% if item.instructions %}
+                                            <small class="text-muted">Note: {{ item.instructions }}</small>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                <div class="text-end">
+                                    <h5>${{ "%.2f"|format(item.price) }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4>Total: ${{ "%.2f"|format(total) }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Payment Information</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('process_checkout') }}">
+                    <div class="mb-3">
+                        <label for="cardNumber" class="form-label">Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" name="card_number" required>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="expiryDate" class="form-label">Expiry Date</label>
+                            <input type="text" class="form-control" id="expiryDate" name="expiry_date" placeholder="MM/YY" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" class="form-control" id="cvv" name="cvv" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cardName" class="form-label">Name on Card</label>
+                        <input type="text" class="form-control" id="cardName" name="card_name" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">Complete Order</button>
+                        <a href="{{ url_for('cart') }}" class="btn btn-outline-secondary">Back to Cart</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

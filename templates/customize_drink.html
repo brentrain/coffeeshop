@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block title %}Customize {{ drink.name }} - Coffee Shop{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header">
+                <h3>Customize Your {{ drink.name }}</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('add_to_cart', drink_id=drink.id) }}">
+                    <div class="mb-4">
+                        <h4>Size</h4>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="size" id="sizeSmall" value="small" checked>
+                            <label class="form-check-label" for="sizeSmall">
+                                Small (12 oz) - ${{ drink.base_price }}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="size" id="sizeMedium" value="medium">
+                            <label class="form-check-label" for="sizeMedium">
+                                Medium (16 oz) - ${{ drink.base_price + 0.5 }}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="size" id="sizeLarge" value="large">
+                            <label class="form-check-label" for="sizeLarge">
+                                Large (20 oz) - ${{ drink.base_price + 1.0 }}
+                            </label>
+                        </div>
+                    </div>
+
+                    {% if drink.category in ['hot_coffee', 'cold_coffee'] %}
+                    <div class="mb-4">
+                        <h4>Milk Options</h4>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="milk" id="milkNone" value="none" checked>
+                            <label class="form-check-label" for="milkNone">No Milk</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="milk" id="milkWhole" value="whole">
+                            <label class="form-check-label" for="milkWhole">Whole Milk</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="milk" id="milkSkim" value="skim">
+                            <label class="form-check-label" for="milkSkim">Skim Milk</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="milk" id="milkAlmond" value="almond">
+                            <label class="form-check-label" for="milkAlmond">Almond Milk (+$0.50)</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="milk" id="milkSoy" value="soy">
+                            <label class="form-check-label" for="milkSoy">Soy Milk (+$0.50)</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="milk" id="milkOat" value="oat">
+                            <label class="form-check-label" for="milkOat">Oat Milk (+$0.50)</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4>Sugar</h4>
+                        <div class="input-group">
+                            <span class="input-group-text">Number of sugar packets</span>
+                            <input type="number" class="form-control" name="sugar" min="0" max="10" value="0">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4>Extras</h4>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="whipped_cream" id="whippedCream">
+                            <label class="form-check-label" for="whippedCream">Whipped Cream (+$0.50)</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="caramel_drizzle" id="caramelDrizzle">
+                            <label class="form-check-label" for="caramelDrizzle">Caramel Drizzle (+$0.50)</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="chocolate_syrup" id="chocolateSyrup">
+                            <label class="form-check-label" for="chocolateSyrup">Chocolate Syrup (+$0.50)</label>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if drink.category in ['black_tea', 'green_tea', 'white_tea'] %}
+                    <div class="mb-4">
+                        <h4>Tea Options</h4>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="tea_strength" id="teaLight" value="light" checked>
+                            <label class="form-check-label" for="teaLight">Light</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="tea_strength" id="teaMedium" value="medium">
+                            <label class="form-check-label" for="teaMedium">Medium</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="tea_strength" id="teaStrong" value="strong">
+                            <label class="form-check-label" for="teaStrong">Strong</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4>Sweetener</h4>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sweetener" id="sweetenerNone" value="none" checked>
+                            <label class="form-check-label" for="sweetenerNone">None</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sweetener" id="sweetenerSugar" value="sugar">
+                            <label class="form-check-label" for="sweetenerSugar">Sugar</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sweetener" id="sweetenerHoney" value="honey">
+                            <label class="form-check-label" for="sweetenerHoney">Honey (+$0.50)</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4>Add-ons</h4>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="lemon" id="lemon">
+                            <label class="form-check-label" for="lemon">Lemon</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4>Flavorings</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Regular Flavorings</h5>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flavor" id="flavorNone" value="none" checked>
+                                    <label class="form-check-label" for="flavorNone">No Flavor</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flavor" id="flavorVanilla" value="vanilla">
+                                    <label class="form-check-label" for="flavorVanilla">Vanilla (+$0.50)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flavor" id="flavorCaramel" value="caramel">
+                                    <label class="form-check-label" for="flavorCaramel">Caramel (+$0.50)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flavor" id="flavorHazelnut" value="hazelnut">
+                                    <label class="form-check-label" for="flavorHazelnut">Hazelnut (+$0.50)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flavor" id="flavorPeach" value="peach">
+                                    <label class="form-check-label" for="flavorPeach">Peach (+$0.50)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flavor" id="flavorRaspberry" value="raspberry">
+                                    <label class="form-check-label" for="flavorRaspberry">Raspberry (+$0.50)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flavor" id="flavorLavender" value="lavender">
+                                    <label class="form-check-label" for="flavorLavender">Lavender (+$0.50)</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Sugar-Free Flavorings</h5>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flavor" id="flavorVanillaSF" value="vanilla_sf">
+                                    <label class="form-check-label" for="flavorVanillaSF">Sugar-Free Vanilla (+$0.50)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flavor" id="flavorCaramelSF" value="caramel_sf">
+                                    <label class="form-check-label" for="flavorCaramelSF">Sugar-Free Caramel (+$0.50)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flavor" id="flavorHazelnutSF" value="hazelnut_sf">
+                                    <label class="form-check-label" for="flavorHazelnutSF">Sugar-Free Hazelnut (+$0.50)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flavor" id="flavorPeachSF" value="peach_sf">
+                                    <label class="form-check-label" for="flavorPeachSF">Sugar-Free Peach (+$0.50)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flavor" id="flavorRaspberrySF" value="raspberry_sf">
+                                    <label class="form-check-label" for="flavorRaspberrySF">Sugar-Free Raspberry (+$0.50)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if drink.category == 'matcha' %}
+                    <div class="mb-4">
+                        <h4>Matcha Options</h4>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="matcha_grade" id="matchaRegular" value="regular" checked>
+                            <label class="form-check-label" for="matchaRegular">Regular Grade</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="matcha_grade" id="matchaPremium" value="premium">
+                            <label class="form-check-label" for="matchaPremium">Premium Grade (+$1.00)</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4>Sweetness Level</h4>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sweetness" id="sweetnessNone" value="none" checked>
+                            <label class="form-check-label" for="sweetnessNone">None</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sweetness" id="sweetnessLight" value="light">
+                            <label class="form-check-label" for="sweetnessLight">Light</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sweetness" id="sweetnessMedium" value="medium">
+                            <label class="form-check-label" for="sweetnessMedium">Medium</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sweetness" id="sweetnessSweet" value="sweet">
+                            <label class="form-check-label" for="sweetnessSweet">Sweet</label>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="mb-4">
+                        <h4>Special Instructions</h4>
+                        <textarea class="form-control" name="instructions" rows="3" placeholder="Any special requests?"></textarea>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
